@@ -1,0 +1,39 @@
+/* Additional custom styles for the Navbar */
+
+/* Align user image vertically centered */
+.user-image {
+    display: flex;
+    align-items: center;
+    margin-left: 15px;
+  }
+  
+  /* Media query for smaller screens */
+  @media (max-width: 767px) {
+    .navbar-expand-lg .navbar-toggler {
+      display: block;
+      background-color: #333; /* Customize the background color of the toggler button */
+    }
+  
+    /* Center the toggler icon */
+    .navbar-toggler-icon {
+      background-color: #fff; /* Customize the color of the toggler icon */
+    }
+  
+    .collapse.navbar-collapse {
+      position: absolute;
+      top: 56px; /* Adjust this value based on your navbar height */
+      right: 0;
+      left: 0;
+      background-color: #121212; /* Customize the background color of the collapsed menu */
+    }
+  
+    /* Adjust padding and color of collapsed menu items */
+    .navbar-nav .nav-item {
+      padding: 10px;
+    }
+  
+    .navbar-nav .nav-link {
+      color: #fff;
+    }
+  }
+  

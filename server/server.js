@@ -1,14 +1,17 @@
 const express = require('express');
 const mongoose =require('mongoose');
 const cors = require('cors');
-//const bcrypt = require('bcrypt');
-//const multer = require('multer');
-//const jwt = require("jsonwebtoken");
+const bcrypt = require('bcrypt');
+const multer = require('multer');
+const jwt = require("jsonwebtoken");
 
 const app =express();
 
 app.use(express.json());
 app.use(cors());
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+
 
 
 const dbURI = "mongodb://localhost/mern-todo";
@@ -21,8 +24,6 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
 
 const Todo =require('./model/Todo')
 const User=require('./model/User')
-
-
 
 const authenticate = async (req, res, next) => {
   const token = req.headers.authorization;
@@ -64,7 +65,6 @@ const authenticate = async (req, res, next) => {
 };
 
 
-/*
 app.post('/signup', upload.single('image'), async (req, res) => {
   const { name, email, password } = req.body;
   const { originalname, mimetype, buffer } = req.file;
@@ -89,8 +89,7 @@ app.post('/signup', upload.single('image'), async (req, res) => {
         data: buffer,
         contentType: mimetype
       },
-      bio,
-      phone
+
     });
 
     await newUser.save();
@@ -104,8 +103,6 @@ app.post('/signup', upload.single('image'), async (req, res) => {
   }
  
 });
-
-*/
 
 
 app.post("/login", async (req, res) => {
@@ -139,17 +136,20 @@ app.post("/login", async (req, res) => {
 });
 
 
-app.get('/todos',async (req,res)=>{
+app.get('/todos',authenticate,async (req,res)=>{
 
-    const todos=await Todo.find();
+  const userId = req.user._id;
 
-    res.json(todos);
+  // Fetch todos where userId matches req.user._id
+  const todos = await Todo.find({ userId });
+  res.json(todos);
 
 });
 
-app.post('/todo/new', (req, res) => {
+app.post('/todo/new', authenticate,(req, res) => {
     const todo = Todo({
-      text: req.body.text
+      text: req.body.text,
+      userId:req.user._id
     });
   
     todo.save()
@@ -170,7 +170,6 @@ const result= await Todo.findByIdAndDelete(req.params.id);
   })
   
 
-app.listen(3001,()=>console.log("server running on 3001"))
 
 app.get('/todo/complete/:id', async (req, res) => {
   try {
@@ -190,7 +189,63 @@ app.get('/todo/complete/:id', async (req, res) => {
   }
 });
 
+app.get("/profile", authenticate, async (req, res) => {
+  res.status(200).json(req.user);
+});
+
+app.get("/current-user", authenticate, async (req, res) => {
+  res.status(200).json(req.user);
+});
 
 
 
+
+
+app.put("/edit-profile", authenticate, upload.single("image"), async (req, res) => {
+  const { email, password, name,bio,phone } = req.body;
+  const { user } = req;
+
+  try {
+    // Create an object to store the updated fields
+    const updatedFields = {};
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    // Update user fields if provided
+    if (email) updatedFields.email = email;
+    if (password) updatedFields.password = hashedPassword;
+    if (name) updatedFields.name = name;
+    // Update user image if provided
+    if (req.file) {
+      updatedFields["image.data"] = req.file.buffer;
+      updatedFields["image.contentType"] = req.file.mimetype;
+    }
+
+    // Update the user using findOneAndUpdate
+    const updatedUser = await User.findOneAndUpdate({ _id: user._id }, updatedFields, {
+      new: true, // Return the updated user as the result
+    });
+
+    // Convert image data to base64 string
+    const base64Image = updatedUser.image.data.toString("base64");
+
+    // Create a modified user object with the encoded image
+    const modifiedUser = {
+      ...updatedUser._doc,
+      image: {
+        data: base64Image,
+        contentType: updatedUser.image.contentType,
+      },
+    };
+
+    res.status(200).json(modifiedUser);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+
+
+
+app.listen(4000,()=>console.log("server running on 4000"))
 
