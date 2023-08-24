@@ -3,6 +3,7 @@ import SignUp from './SignUp/SignUp'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './Login/Login';
 import ToDo from './Todo/ToDo';
+import EditProfile from './Profile/EditProfile'
 function App() {
   return (
     <div>
@@ -13,6 +14,7 @@ function App() {
      <Route exact path="/" element={< SignUp/>} />
      <Route path='login' element={<Login/>}/>
      <Route path='todo' element={<ToDo/>}/>
+     <Route path='profile' element={<EditProfile/>}/>
 
     
      </Routes>

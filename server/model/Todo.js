@@ -11,10 +11,10 @@ const TodoSchema = new Schema({
         type:Boolean,
         default:false
     },
-    timeStamp:{
-        type:String,
-        default:Date.now()
-    },
+    createdAt: {
+        type: Date,
+        default: Date.now,
+      },
     userId:{
         type: mongoose.Schema.Types.ObjectId,
       ref: 'User',

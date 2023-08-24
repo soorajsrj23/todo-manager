@@ -13,6 +13,8 @@ function ToDo() {
   const [popUpActive,setPopUpActive] =useState(false);
   const [newTodo,setNewTodo] =useState("");
   const [priority, setPriority] = useState("low");
+  const [sortOption, setSortOption] = useState("default");
+
 
   useEffect(()=>{
      GetTodos();
@@ -89,11 +91,50 @@ const addTodo = async () => {
 }
 
 
+const handleSortChange = (e) => {
+  const selectedSort = e.target.value;
+  setSortOption(selectedSort);
+  if (selectedSort === "default") {
+    GetTodos();
+  } else {
+    sortTodos(selectedSort);
+  }
+};
+
+const sortTodos = (selectedSort) => {
+  let sortedTodos = [...todos];
+
+  const customPriorityOrder = ["high", "medium", "low"];
+  const orderFactor = selectedSort === "highToLow" ? -1 : 1;
+
+  sortedTodos.sort((a, b) => {
+    return orderFactor * (customPriorityOrder.indexOf(a.priority) - customPriorityOrder.indexOf(b.priority));
+  });
+
+  setTodos(sortedTodos);
+};
+
   return (
     <div className='main_todo'>
       <Navbar/>
 
       <h4>Your Todos</h4>
+      <div className='sort-dropdown'>
+        <select
+          id='sort-select'
+          className='priority-select'
+          value={sortOption}
+          onChange={handleSortChange}
+        >
+          <option value='default'>Sort By</option>
+          <option value='highToLow'>Low to High</option>
+          <option value='lowToHigh'>High to Low</option>
+        </select>
+        <br/>
+        <br/>
+        <br/>
+      </div>
+
       <div className='todos'>
         {
           todos.map(todo=>(

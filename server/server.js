@@ -201,7 +201,7 @@ app.get("/current-user", authenticate, async (req, res) => {
 
 
 app.put("/edit-profile", authenticate, upload.single("image"), async (req, res) => {
-  const { email, password, name,bio,phone } = req.body;
+  const { email, password, name } = req.body;
   const { user } = req;
 
   try {
@@ -242,8 +242,6 @@ app.put("/edit-profile", authenticate, upload.single("image"), async (req, res) 
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
-
-
 
 
 app.listen(4000,()=>console.log("server running on 4000"))

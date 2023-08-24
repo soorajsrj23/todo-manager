@@ -177,6 +177,8 @@
     height: 20px;
     border-radius: 50%;
     margin-left: 16px; /* Add some space between text and circle */
+    margin-right: 10px;
+   
   }
   
   /* Add priority-based colors */
@@ -191,3 +193,42 @@
   .todo .priority-circle.high {
     background-color: red;
   }
+
+  /* Styling for select box */
+.priority-select {
+    appearance: none;
+    padding: 10px;
+    border: 2px solid transparent; /* Set initial border to transparent */
+    border-image: linear-gradient(to bottom right, var(--primary), var(--secondary));
+    border-image-slice: 1; /* Ensure entire border is gradient */
+    border-radius: 15px;
+    background-color: transparent;
+    color: var(--light);
+    font-size: 16px;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    
+    transition: border-color 0.3s, color 0.3s;
+  }
+  
+  .priority-select:focus {
+    outline: none;
+    border-color: var(--secondary); /* Use secondary color on focus */
+
+  }
+  
+  /* Styling for options */
+  .priority-select option {
+    background-color: var(--dark);
+    color: var(--light-alt);
+    font-size: 16px;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  /* Hover effect for options */
+  .priority-select option:hover {
+    background-color: var(--primary);
+    color: var(--light);
+  }
+  
