@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { Container, Row, Col, FormGroup, Label, Button } from 'reactstrap';
+import { Container, Row, Col, FormGroup, Label } from 'reactstrap';
 
 import './SignUp.css'
 import { toast } from 'react-toastify';
@@ -56,7 +56,7 @@ const SignUp = () => {
     <div className="signup-container">
       <Container className="h-100">
         <Row className="h-100 justify-content-center align-items-center">
-          <Col md="6" className="mx-auto">
+          <Col md="4" className="mx-auto">
             <div className="signup-form p-4">
               <div className="icon-wrapper">
                 {selectedFile ? (
@@ -99,9 +99,9 @@ const SignUp = () => {
                 <input type="password" id="password" className="dark" value={password} onChange={(e) => setPassword(e.target.value)} />
               </FormGroup>
               <center>
-                <Button type="button" className="btn btn-dark" onClick={handleSignup}>
+                <button type="button" class="btn btn-outline-light" onClick={handleSignup}>
                   Sign Up
-                </Button>
+                </button>
                   <p>Already have an account <u onClick={moveTologin}>login</u></p>
               </center>
             

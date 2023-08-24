@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 //import { toast } from 'react-toastify';
-import { Container, Row, Col, FormGroup, Label, Button } from 'reactstrap';
+import { Container, Row, Col, FormGroup, Label } from 'reactstrap';
 import './Login.css'
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -38,10 +38,10 @@ const Login = () => {
     <div className="login-container">
    <Container className="h-100">
     <Row className="h-100 justify-content-center align-items-center">
-      <Col md="6" className="mx-auto">
+      <Col md="4" className="mx-auto">
         <div className="signup-form p-4">
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <i className="bi bi-buildings" style={{ fontSize: '74px', width: '60px', height: '60px', color: 'grey' }}></i>
+        <i className="bi bi-person-circle" style={{ fontSize: '74px', width: '60px', height: '60px', color: 'grey' }}></i>
         </div>
           <h2 className='Login_head'>Log In</h2>
           
@@ -58,7 +58,7 @@ const Login = () => {
           </FormGroup>
           
           <center>
-            <Button type="button" className="btn btn-dark" onClick={handleLogin}>Log In</Button>
+            <button type="button" class="btn btn-outline-light" onClick={handleLogin}>Log In</button>
             <p className='error_part'>{error?<p>verify your email and password</p>:''} </p>
           </center>
         </div>

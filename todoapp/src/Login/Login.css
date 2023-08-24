@@ -4,26 +4,35 @@
     align-items: center;
     height: 100vh;
     color: white;
-    background-color: #181818;
+    background-color:var(--dark);
   }
   
   .signup-form {
-    background-color: #181818;
-    padding: 30px;
-    border-radius: 8px;
+    background-color: #18182d !important;
+    appearance: none;
+    padding: 10px;
+    border: 2px solid transparent; /* Set initial border to transparent */
+    border-image: linear-gradient(to bottom right, var(--primary), var(--secondary));
+    border-image-slice: 1; /* Ensure entire border is gradient */
+    border-radius: 15px;
+    background-color: transparent;
   }
   
   .profile-icon {
     display: flex;
     justify-content: center;
     align-items: center;
+   
   }
   
   .profile-icon i {
     font-size: 34px;
     width: 60px;
     height: 60px;
-    color: grey;
+   
+  }
+  i{
+    color: #6a2dab4d !important;
   }
   
   .login-head {
@@ -38,7 +47,7 @@
     background-color:transparent;
     color: #c9d1d9;
     border: none;
-    border-bottom: 1px solid white;
+    border-bottom: 1px solid var(--secondary);
     height: 40px;
     width: 100%;
     padding: 8px;
