@@ -19,6 +19,10 @@ const TodoSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
 
+    },
+    priority:{
+        type:String,
+        required:true
     }
 
 })

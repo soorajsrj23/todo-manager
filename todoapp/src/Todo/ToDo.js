@@ -12,6 +12,7 @@ function ToDo() {
   const [todos,setTodos] =useState([]);
   const [popUpActive,setPopUpActive] =useState(false);
   const [newTodo,setNewTodo] =useState("");
+  const [priority, setPriority] = useState("low");
 
   useEffect(()=>{
      GetTodos();
@@ -55,45 +56,52 @@ const completeTodo =async id=>{
 
 const deleteTodo =async id=>{
   const data = await fetch(API_BASE+"/todo/delete/"+ id, {
-    method:"DELETE"
+    method:"DELETE",
+     headers: {
+      Authorization: localStorage.getItem('token'),
+    },
   })
   .then(res=>res.json());
 
   setTodos(todos=>todos.filter(todo=>todo._id !== data.id));
+  GetTodos();
 
 }
 
 
-const addTodo =async()=>{
-  const data = await fetch(API_BASE+ "/todo/new",{
-    method:"POST",
-    headers:{
-      "Content-Type":"application/json",
-      Authorization: localStorage.getItem('token'), 
-      
+const addTodo = async () => {
+  const data = await fetch(API_BASE + "/todo/new", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: localStorage.getItem('token'),
     },
-    body:JSON.stringify({
-      text:newTodo
-    })
-  }).then(res=>res.json());
-  setTodos([...todos,data]);
+    body: JSON.stringify({
+      text: newTodo,
+      priority: priority, // Include the priority in the request
+    }),
+  }).then(res => res.json());
+
+  setTodos([...todos, data]);
   setPopUpActive(false);
   setNewTodo("");
-console.log(data);
+  setPriority("low"); // Reset priority to default
 }
+
 
   return (
     <div className='main_todo'>
       <Navbar/>
-      <h1>Welcome, SRJ</h1>
+
       <h4>Your Todos</h4>
       <div className='todos'>
         {
           todos.map(todo=>(
         <div className={'todo'+(todo.complete? " is-complete":"") }key={todo._id} onClick={()=>completeTodo(todo._id) }>
-      <div className='checkbox'></div>
-
+     
+      <div className={`priority-circle ${todo.priority}`}></div>
           <div className='text'>{todo.text}</div>
+         
 
           <div className='delete-todo'onClick={()=>deleteTodo(todo._id)} >x</div>
       
@@ -109,16 +117,28 @@ console.log(data);
         <div className='closePopUp' onClick={()=>setPopUpActive(false)} >      
        x </div>
 
- <div className='content'>
+       <div className='content'>
   <h3>Add Task</h3>
-  <input type = "text" 
-  className='add-todo-input' 
-   onChange={e=>setNewTodo(e.target.value)}
-   value={newTodo}
-/>
+  <input 
+    type="text" 
+    className='add-todo-input' 
+    onChange={e => setNewTodo(e.target.value)}
+    value={newTodo}
+  />
+  
+  <select 
+    className='priority-select'
+    value={priority}
+    onChange={e => setPriority(e.target.value)}
+  >
+    <option value="low">Low</option>
+    <option value="medium">Medium</option>
+    <option value="high">High</option>
+  </select>
 
-<div className='button' onClick={addTodo}> Add to Task </div>
-  </div>
+  <div className='button' onClick={addTodo}>Add to Task</div>
+</div>
+
 
 
   </div>  

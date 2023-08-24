@@ -11,7 +11,7 @@
   @media (max-width: 767px) {
     .navbar-expand-lg .navbar-toggler {
       display: block;
-      background-color: #333; /* Customize the background color of the toggler button */
+      background-color:#2d2d5b; /* Customize the background color of the toggler button */
     }
   
     /* Center the toggler icon */
@@ -24,7 +24,7 @@
       top: 56px; /* Adjust this value based on your navbar height */
       right: 0;
       left: 0;
-      background-color: #121212; /* Customize the background color of the collapsed menu */
+      background-color: #2d2d5b; /* Customize the background color of the collapsed menu */
     }
   
     /* Adjust padding and color of collapsed menu items */
@@ -36,4 +36,8 @@
       color: #fff;
     }
   }
-  
+  .rounded-circle{
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+  }

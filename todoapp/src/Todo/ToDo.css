@@ -172,4 +172,22 @@
      cursor: pointer;
  
  }
- 
+ .todo .priority-circle {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-left: 16px; /* Add some space between text and circle */
+  }
+  
+  /* Add priority-based colors */
+  .todo .priority-circle.low {
+    background-color: green;
+  }
+  
+  .todo .priority-circle.medium {
+    background-color: orange;
+  }
+  
+  .todo .priority-circle.high {
+    background-color: red;
+  }

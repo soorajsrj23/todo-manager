@@ -149,7 +149,8 @@ app.get('/todos',authenticate,async (req,res)=>{
 app.post('/todo/new', authenticate,(req, res) => {
     const todo = Todo({
       text: req.body.text,
-      userId:req.user._id
+      userId:req.user._id,
+      priority:req.body.priority
     });
   
     todo.save()
@@ -189,9 +190,7 @@ app.get('/todo/complete/:id', async (req, res) => {
   }
 });
 
-app.get("/profile", authenticate, async (req, res) => {
-  res.status(200).json(req.user);
-});
+
 
 app.get("/current-user", authenticate, async (req, res) => {
   res.status(200).json(req.user);
