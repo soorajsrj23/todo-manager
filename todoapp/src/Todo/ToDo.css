@@ -120,7 +120,7 @@
      transform: translate(-50%,-50%);
  
      width: 100%;
-     background-color: var(--light);
+     background-color: var(--dark-alt);
      padding: 32px;
      border-radius: 16px;
  
@@ -144,7 +144,7 @@
  
  
  .popUp h3{
-     color: var(--dark);
+     color: var(--light);
      margin-bottom: 16px;
      font-weight: 400;
      text-transform: uppercase;
@@ -153,12 +153,15 @@
  .add-todo-input
  {
      appearance: none;
-     border: none;
+     border: 1px solid white;
+     border-radius: 25px;
      outline: none;
-     background-color: azure;
+     background-color:  transparent;
      padding: 16px;
      box-shadow: 0px 2px 24px rgba(0,0, 0, 0.2);
      width: 100%;
+     color: #EEE;
+     margin-bottom: 16px;
  }
  
  .button{
@@ -183,15 +186,15 @@
   
   /* Add priority-based colors */
   .todo .priority-circle.low {
-    background-color: green;
+    background-image: linear-gradient(to bottom right, #0EFFA0,#8b4efc68);
   }
   
   .todo .priority-circle.medium {
-    background-color: orange;
+    background-image: linear-gradient(to bottom right, #00d0ff,#8A4EFC);
   }
   
   .todo .priority-circle.high {
-    background-color: red;
+    background-image: linear-gradient(to bottom right, #FF0066,#8A4EFC);
   }
 
   /* Styling for select box */

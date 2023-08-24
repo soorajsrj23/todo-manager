@@ -38,7 +38,7 @@ function Navbar() {
         <ul className="navbar-nav">
           {profile.email && (
             <li className="nav-item">
-              <a className="nav-link" href="#">{profile.email}</a>
+              <a className="nav-link" href="/history">History</a>
             </li>
           )}
           <li className="nav-item">

@@ -1,0 +1,63 @@
+/* History Container */
+.history-container {
+    padding: 20px;
+    background-color: var(--dark);
+    color: var(--light);
+    height: 100vh;
+  }
+  
+  /* Date Container */
+  .date-container {
+    margin-bottom: 20px;
+  }
+  
+  .date-container h2 {
+    font-size: 24px;
+    color: var(--primary);
+    margin-bottom: 10px;
+  }
+  
+  /* Todo */
+  .todo_history {
+    background-color: var(--dark-alt);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px; /* Add margin between todos */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .todo_history .text_history {
+    font-size: 18px;
+    flex-grow: 1;
+  }
+  
+  .priority-circle_history {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: bold;
+    background: linear-gradient(to bottom right, var(--primary), var(--secondary));
+    color: var(--light);
+ 
+    margin-left: 16px;
+    margin-right: 10px;
+  }
+  
+  /* Hover effect for todos */
+  .todo_history:hover {
+    background-color:  #222a48;
+    color: var(--light);
+  }
+  .todo_history.incomplete {
+    border-radius: 10px;
+   background-color:  var(--primary);
+    color: white; /* Adjust text color for visibility */
+  }
+  

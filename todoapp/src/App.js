@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './Login/Login';
 import ToDo from './Todo/ToDo';
 import EditProfile from './Profile/EditProfile'
+import History from './ToDoHistory/History'
 function App() {
   return (
     <div>
@@ -15,6 +16,7 @@ function App() {
      <Route path='login' element={<Login/>}/>
      <Route path='todo' element={<ToDo/>}/>
      <Route path='profile' element={<EditProfile/>}/>
+     <Route path='history' element={<History/>}/>
 
     
      </Routes>

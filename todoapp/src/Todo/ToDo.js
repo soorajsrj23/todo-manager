@@ -165,6 +165,8 @@ const sortTodos = (selectedSort) => {
     className='add-todo-input' 
     onChange={e => setNewTodo(e.target.value)}
     value={newTodo}
+    validate
+    required
   />
   
   <select 

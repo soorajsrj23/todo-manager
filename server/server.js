@@ -198,8 +198,6 @@ app.get("/current-user", authenticate, async (req, res) => {
 
 
 
-
-
 app.put("/edit-profile", authenticate, upload.single("image"), async (req, res) => {
   const { email, password, name } = req.body;
   const { user } = req;
