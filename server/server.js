@@ -14,12 +14,26 @@ const upload = multer({ storage: storage });
 
 
 
-const dbURI = "mongodb://localhost/mern-todo";
+const dbURI = 'mongodb://127.0.0.1:27017/mern-todo';
 
-mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
-.then(() => console.log("Connected to MongoDB"))
-  .catch((err) => console.log(err));
+// Create a connection to MongoDB
+mongoose.connect(dbURI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
+// Get the default connection
+const db = mongoose.connection;
+
+// Bind a function to the 'error' event (to handle connection errors)
+db.on('error', (error) => {
+  console.error('MongoDB connection error:', error);
+});
+
+// Bind a function to the 'open' event (to confirm successful connection)
+db.once('open', () => {
+  console.log('Connected to MongoDB');
+});
 
 
 const Todo =require('./model/Todo')
@@ -242,5 +256,5 @@ app.put("/edit-profile", authenticate, upload.single("image"), async (req, res) 
 });
 
 
-app.listen(4000,()=>console.log("server running on 4000"))
+app.listen(4000,()=>console.log("server running on 4003"))
 
