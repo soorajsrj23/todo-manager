@@ -14,12 +14,11 @@ const upload = multer({ storage: storage });
 
 
 
-const dbURI = 'mongodb://0.0.0.0:27017/mern-todo';
+const dbURI = 'mongodb://127.0.0.1:27017/mern-todo';
 
 // Create a connection to MongoDB
 mongoose.connect(dbURI, {
   useNewUrlParser: true,
-  useUnifiedTopology: false,
 });
 
 // Get the default connection
