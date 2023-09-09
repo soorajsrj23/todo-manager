@@ -14,7 +14,7 @@ const upload = multer({ storage: storage });
 
 
 
-const dbURI = 'mongodb://127.0.0.1:27017/mern-todo';
+const dbURI = 'mongodb://0.0.0.0:27017/mern-todo';
 
 // Create a connection to MongoDB
 mongoose.connect(dbURI, {
@@ -183,7 +183,10 @@ app.delete('/todo/delete/:id',async(req,res)=>{
 const result= await Todo.findByIdAndDelete(req.params.id);
     res.json(result);
   })
-  
+
+  app.get('/test',async(req,res)=>{
+    res.status(200).send('Test okey');
+  });
 
 
 app.get('/todo/complete/:id', async (req, res) => {
