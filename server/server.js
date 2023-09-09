@@ -15,7 +15,6 @@ const dotenv=require("dotenv")
 dotenv.config();
 
 
-
 const dbURI = process.env.URI;
 const PORT=process.env.PORT || 5000;
 
@@ -254,6 +253,5 @@ app.put("/edit-profile", authenticate, upload.single("image"), async (req, res) 
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
-
 
 
