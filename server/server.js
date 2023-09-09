@@ -11,27 +11,25 @@ app.use(express.json());
 app.use(cors());
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
+const dotenv=require("dotenv")
+dotenv.config();
 
 
 
-const dbURI = 'mongodb://127.0.0.1:27017/mern-todo';
+const dbURI = process.env.URI;
+const PORT=process.env.PORT || 5000;
 
 // Create a connection to MongoDB
-mongoose.connect(dbURI, {
-  useNewUrlParser: true,
-});
+mongoose.connect(dbURI).then(()=>{
+  console.log("connected to MongoDb");
+  app.listen(PORT,(error)=>{
+    if(error) console.log(error);
+    console.log("server running on",process.env.PORT);
+  });
+  
+}).catch((error)=>{
+  console.log("Error",error);
 
-// Get the default connection
-const db = mongoose.connection;
-
-// Bind a function to the 'error' event (to handle connection errors)
-db.on('error', (error) => {
-  console.error('MongoDB connection error:', error);
-});
-
-// Bind a function to the 'open' event (to confirm successful connection)
-db.once('open', () => {
-  console.log('Connected to MongoDB');
 });
 
 
@@ -258,5 +256,4 @@ app.put("/edit-profile", authenticate, upload.single("image"), async (req, res) 
 });
 
 
-app.listen(4000,()=>console.log("server running on 4003"))
 
