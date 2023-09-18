@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './History.css'; // Apply your previously themed styles here
+import { BASE_URL } from '../Config/helper';
 
-const API_BASE = "http://localhost:4000"; // Your API base URL
+const API_BASE = BASE_URL; // Your API base URL
 
 function History() {
   const [todos, setTodos] = useState([]);

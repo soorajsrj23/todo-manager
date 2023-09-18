@@ -2,15 +2,14 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './EditProfile.css';
 //import { toast } from 'react-toastify';
-import { Button, Container } from 'reactstrap';
+import { Button } from 'reactstrap';
 const EditProfile = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [image, setImage] = useState(null);
   const [fetchedImage, setFetchedImage] = useState('');
-  const [bio,setBio]=useState('');
-  const [phone,setPhone] = useState('');
+ 
 
   useEffect(() => {
     // Fetch user profile data
@@ -21,11 +20,10 @@ const EditProfile = () => {
         },
       })
       .then((response) => {
-        const { email, name, image,bio,phone } = response.data;
+        const { email, name, image } = response.data;
         setEmail(email);
         setName(name);
-        setBio(bio);
-        setPhone(phone);
+      
         if (image && image.data && image.contentType) {
           const base64Image = `data:${image.contentType};base64,${image.data}`;
           setFetchedImage(base64Image);

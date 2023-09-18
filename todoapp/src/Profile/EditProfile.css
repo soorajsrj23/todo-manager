@@ -5,7 +5,6 @@
     align-items: center;
     height: 100vh;
     background-color: #161b22;
-   
   }
   
   .edit-profile-form {
@@ -42,10 +41,8 @@
   
   input:focus {
     outline: none;
-    border: 2px solid #0366d6;
-    /* Blue border color */
-    box-shadow: 0 0 5px #0366d6;
-    /* Blue box shadow */
+    border: none;
+    border-bottom: 2px solid #7944fff8;
   }
   
   .image-container {
@@ -83,7 +80,6 @@
   button[type='submit'] {
     padding: 10px 20px;
     background-color: #007bff;
-    /* Blue button color */
     color: #fff;
     border: none;
     border-radius: 5px;

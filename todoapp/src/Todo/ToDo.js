@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import './ToDo.css'
 import axios from 'axios';
 import Navbar from '../NavBar/NavBar';
+import { BASE_URL } from '../Config/helper';
+import HelmetComponent from '../Config/HelmetComponent';
 
 
-const API_BASE = "http://localhost:4000";
+const API_BASE = BASE_URL;
 
 
 function ToDo() {
@@ -116,6 +118,7 @@ const sortTodos = (selectedSort) => {
 
   return (
     <div className='main_todo'>
+      <HelmetComponent pageTitle="Your Todo"/>
       <Navbar/>
 
       <h4>Your Todos</h4>

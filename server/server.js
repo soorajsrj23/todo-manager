@@ -8,7 +8,14 @@ const jwt = require("jsonwebtoken");
 const app =express();
 
 app.use(express.json());
-app.use(cors());
+const corsOptions = {
+  origin: "https://todo-frontend-08xp.onrender.com",
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true, // You may need to set this depending on your use case
+};
+
+app.use(cors(corsOptions));
+
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 const dotenv=require("dotenv")
@@ -17,6 +24,7 @@ dotenv.config();
 
 const dbURI = process.env.URI;
 const PORT=process.env.PORT || 5000;
+const baseURl=process.env.BASE_URL;
 
 // Create a connection to MongoDB
 mongoose.connect(dbURI).then(()=>{
@@ -75,7 +83,7 @@ const authenticate = async (req, res, next) => {
 };
 
 
-app.post('/signup', upload.single('image'), async (req, res) => {
+app.post(`/signup`, upload.single('image'), async (req, res) => {
   const { name, email, password } = req.body;
   const { originalname, mimetype, buffer } = req.file;
 
@@ -115,7 +123,7 @@ app.post('/signup', upload.single('image'), async (req, res) => {
 });
 
 
-app.post("/login", async (req, res) => {
+app.post(`/login`, async (req, res) => {
   const { email, password } = req.body;
 
   try {
@@ -146,7 +154,7 @@ app.post("/login", async (req, res) => {
 });
 
 
-app.get('/todos',authenticate,async (req,res)=>{
+app.get(`/todos`,authenticate,async (req,res)=>{
 
   const userId = req.user._id;
 
@@ -156,7 +164,7 @@ app.get('/todos',authenticate,async (req,res)=>{
 
 });
 
-app.post('/todo/new', authenticate,(req, res) => {
+app.post(`/todo/new`, authenticate,(req, res) => {
     const todo = Todo({
       text: req.body.text,
       userId:req.user._id,
@@ -174,18 +182,21 @@ app.post('/todo/new', authenticate,(req, res) => {
   
 
 
-app.delete('/todo/delete/:id',async(req,res)=>{
+app.delete(`${baseURl}/todo/delete/:id`,async(req,res)=>{
  
 const result= await Todo.findByIdAndDelete(req.params.id);
     res.json(result);
   })
 
-  app.get('/test',async(req,res)=>{
+app.get(`/test`,async(req,res)=>{
     res.status(200).send('Test okey');
-  });
+});
 
+app.get(`/`,async(req,res)=>{
+    res.status(200).send('Route');
+});
 
-app.get('/todo/complete/:id', async (req, res) => {
+app.get(`/todo/complete/:id`, async (req, res) => {
   try {
     const todo = await Todo.findById(req.params.id);
 
@@ -205,13 +216,13 @@ app.get('/todo/complete/:id', async (req, res) => {
 
 
 
-app.get("/current-user", authenticate, async (req, res) => {
+app.get(`/current-user`, authenticate, async (req, res) => {
   res.status(200).json(req.user);
 });
 
 
 
-app.put("/edit-profile", authenticate, upload.single("image"), async (req, res) => {
+app.put(`/edit-profile`, authenticate, upload.single("image"), async (req, res) => {
   const { email, password, name } = req.body;
   const { user } = req;
 

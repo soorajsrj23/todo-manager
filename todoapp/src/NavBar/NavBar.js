@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './NavBar.css'; // Import your custom CSS if needed
 import axios from 'axios';
+import { BASE_URL } from '../Config/helper';
 
 function Navbar() {
-  const API_BASE = "http://localhost:4000";
+  const API_BASE = BASE_URL;
 
   const [profile, setProfile] = useState({});
 
